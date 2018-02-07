@@ -513,23 +513,45 @@ passphrases = ["kvvfl kvvfl olud wjqsqa olud frc",
 "cgc jazrp crgnna uvuokl uvuokl uoiwl sknmc sknmc",
 "rvbu czwpdit vmlihg spz lfaxxev zslfuto oog dvoksub"]
 
-def is_valid(phrase):
-	phrase = phrase.split(" ")
+def puzzle1():
+	c = 0
+	for phrase in passphrases:
+		phrase = phrase.split(" ")
 
-	for i in range(len(phrase)):
-		p = phrase[:]
-		word = p[i]
-		del p[i]
-		try:
-			p.remove(word)
-		except:
-			continue
-		if len(p) != len(phrase) - 1:
-			return False
-	return True
+		found_match = False
 
-c = 0
-for phrase in passphrases:
-	c += is_valid(phrase)
-print c
+		for i in range(len(phrase)-1):
+			for j in range(i + 1, len(phrase)):
+				if phrase[i] == phrase[j]:
+					found_match = True 
+
+		if not found_match:
+			c += 1
+
+	return c
+
+
+def puzzle2():
+	c = 0
+	for phrase in passphrases:
+		phrase = [''.join(sorted(a)) for a in phrase.split(" ")]
+
+		found_match = False
+
+		for i in range(len(phrase)-1):
+			for j in range(i + 1, len(phrase)):
+				if phrase[i] == phrase[j]:
+					found_match = True 
+
+		if not found_match:
+			c += 1
+
+	return c
+
+
+if __name__ == "__main__":
+	print("1: {}".format(puzzle1()))
+	print("2: {}".format(puzzle2()))
+
+
 
